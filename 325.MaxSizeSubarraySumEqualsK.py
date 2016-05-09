@@ -5,13 +5,10 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        dic = {}
-        sum = 0
-        longest = 0
+        dic = {0:-1}
+        sum, longest = 0, 0
         for i in range(len(nums)):
             sum += nums[i]
-            if sum==k:
-                longest = i+1
             if (sum-k) in dic:
                 longest = max(longest, i - dic[sum-k])
             if sum not in dic:
