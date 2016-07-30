@@ -4,14 +4,12 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        longest = 0
-        cur = 0
-        start = 0
         dic = {}
+        start, result = 0, 0
         for i in range(len(s)):
             c = s[i]
             if c in dic:
-                start = max(dic[c] + 1, start)
+                start = max(start, dic[c]+1)
             dic[c] = i
-            longest = max(longest, i - start+1)
-        return longest
+            result = max(result, i-start+1)
+        return result
