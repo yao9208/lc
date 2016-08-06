@@ -5,23 +5,38 @@
 #         self.left = None
 #         self.right = None
 
-from collections import deque
 class Solution(object):
     def preorderTraversal(self, root):
         """
         :type root: TreeNode
         :rtype: List[int]
         """
-        stack = deque()
-        result = []
+        result, stack = [], []
         if not root:
             return result
         stack.append(root)
         while len(stack)!=0:
             node = stack.pop()
+            result.append(node.val)
             if node.right:
                 stack.append(node.right)
             if node.left:
                 stack.append(node.left)
-            result.append(node.val)
         return result
+
+class Solution(object):
+    def preorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        result = []
+        self.helper(root, result)
+        return result
+
+    def helper(self, root, result):
+        if not root:
+            return
+        result.append(root.val)
+        self.helper(root.left, result)
+        self.helper(root.right, result)

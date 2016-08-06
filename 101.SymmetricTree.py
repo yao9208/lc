@@ -22,3 +22,38 @@ class Solution(object):
             return False
         else:
             return p.val == q.val and self.mirror(p.left, q.right) and self.mirror(p.right, q.left)
+
+
+#iterative
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        stack = []
+        if not root:
+            return True
+        if not root.left or not root.right:
+            return root.left==root.right
+        stack = [root.left, root.right]
+        while len(stack)!=0:
+            right, left = stack.pop(), stack.pop()
+            if left.val!=right.val:
+                return False
+            if right.right:
+                if not left.left:
+                    return False
+                stack.append(left.left)
+                stack.append(right.right)
+            elif left.left:
+                return False
+
+            if right.left:
+                if not left.right:
+                    return False
+                stack.append(left.right)
+                stack.append(right.left)
+            elif left.right:
+                return False
+        return True
