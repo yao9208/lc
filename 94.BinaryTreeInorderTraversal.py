@@ -4,22 +4,39 @@
 #         self.val = x
 #         self.left = None
 #         self.right = None
-from collections import deque
 class Solution(object):
     def inorderTraversal(self, root):
         """
         :type root: TreeNode
         :rtype: List[int]
         """
-        stack = deque()
-        node = root
+        cur = root
         result = []
-        while node or len(stack)!=0:
-            while node:
-                stack.append(node)
-                node = node.left
+        stack = []
+        while cur or len(stack)!=0:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
             cur = stack.pop()
             result.append(cur.val)
-            node = cur.right
+            cur = cur.right
         return result
-             
+
+
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        result = []
+        self.helper(root, result)
+        return result
+
+
+    def helper(self, root, result):
+        if not root:
+            return
+        self.helper(root.left, result)
+        result.append(root.val)
+        self.helper(root.right, result)
