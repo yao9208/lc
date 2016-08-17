@@ -17,11 +17,10 @@ class Solution(object):
         if len(cur)==n:
             result.append(cur[:])
         for i in range(n):
-            if visited[i] or (i>0 and visited[i-1] and nums[i]==nums[i-1]):
+            if visited[i] or (i>0 and not visited[i-1] and nums[i]==nums[i-1]):
                 continue
             cur.append(nums[i])
             visited[i] = True
             self.helper(result, cur, visited, nums)
             visited[i] = False
             del cur[-1]
-        
