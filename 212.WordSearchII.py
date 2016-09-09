@@ -67,4 +67,3 @@ class Solution(object):
         self.dfs(result, board, x, y+1, prefix, trie, visited)
         self.dfs(result, board, x, y-1, prefix, trie, visited)
         visited[x][y] = False
-        
