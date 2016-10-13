@@ -15,3 +15,5 @@ class Solution(object):
                 result = max(result, w*heights[t])
             stack.append(i)
         return result
+
+#http://www.cnblogs.com/lichen782/p/leetcode_Largest_Rectangle_in_Histogram.html
