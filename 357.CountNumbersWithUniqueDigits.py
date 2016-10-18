@@ -10,7 +10,7 @@ class Solution(object):
         choice = 9
         cur = 9
         while n>1:
-            choice = choice * cur
+            choice *= cur
             result += choice
             cur -= 1
             n -= 1
