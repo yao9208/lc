@@ -13,3 +13,5 @@ class Solution(object):
                 ps+=1
             pt+=1
         return ps==len(s)
+
+#follow up: preprocessing for t, + binary search
