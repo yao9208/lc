@@ -18,6 +18,23 @@ class Solution(object):
             count[ord(s[i])-ord('a')] -= 1
         return s[idx] + self.removeDuplicateLetters(s[idx+1:].replace(s[idx],''))
 
+from collections import defaultdict
+class Solution(object):
+    def removeDuplicateLetters(self, s):
+        dic = defaultdict(lambda:0)
+        for c in s:
+            dic[c] += 1
+        stack = []
+        record = set()
+        for c in s:
+            dic[c] -= 1
+            if c in record:
+                continue
+            while len(stack)!=0 and dic[stack[-1]]>0 and stack[-1]>=c:
+                record.remove(stack.pop())
+            stack.append(c)
+            record.add(c)
+        return ''.join(stack)
 
 public class Solution {
     public String removeDuplicateLetters(String s) {
