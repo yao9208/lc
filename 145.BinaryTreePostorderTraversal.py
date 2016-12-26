@@ -32,3 +32,33 @@ class Solution(object):
                 stack.pop()
             prev = cur
         return res
+
+        
+public class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if(root==null){
+            return result;
+        }
+        TreeNode prev = null;
+        Deque<TreeNode> stack = new LinkedList<>();
+        TreeNode cur = null;
+        stack.push(root);
+        while(!stack.isEmpty()){
+            cur = stack.peek();
+            if(prev==null || cur==prev.left || cur==prev.right){
+                if(cur.left!=null){
+                    stack.push(cur.left);
+                }else if(cur.right!=null){
+                    stack.push(cur.right);
+                }
+            }else if(cur.left==prev && cur.right!=null){
+                stack.push(cur.right);
+            }else{
+                result.add(stack.pop().val);
+            }
+            prev = cur;
+        }
+        return result;
+    }
+}

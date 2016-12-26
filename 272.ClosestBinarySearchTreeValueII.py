@@ -48,3 +48,94 @@ class Solution(object):
             self.traverse(root.left, reverse, target, k, queue)
         else:
             self.traverse(root.right, reverse, target, k, queue)
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<Integer> closestKValues(TreeNode root, double target, int k) {
+        List<Integer> result = new ArrayList<>();
+        Deque<TreeNode> predeStack = new LinkedList<>();
+        Deque<TreeNode> succStack = new LinkedList<>();
+        initialPredeStack(predeStack, target, root);
+        initialSuccStack(succStack, target, root);
+        if(!predeStack.isEmpty() && !succStack.isEmpty() && predeStack.peek()==succStack.peek()){
+            getSuccessor(succStack);
+        }
+        while(k-->0){
+            if(predeStack.isEmpty()){
+                result.add(getSuccessor(succStack));
+            }else if(succStack.isEmpty()){
+                result.add(getPredecessor(predeStack));
+            }else{
+                double pre = Math.abs(predeStack.peek().val-target);
+                double succ = Math.abs(succStack.peek().val-target);
+                if(pre<succ){
+                    result.add(getPredecessor(predeStack));
+                }else{
+                    result.add(getSuccessor(succStack));
+                }
+            }
+        }
+        return result;
+    }
+    private int getPredecessor(Deque<TreeNode> stack) {
+        TreeNode cur = stack.pop();
+        int ret = cur.val;
+        TreeNode p = cur.left;
+        while(p!=null){
+            stack.push(p);
+            p = p.right;
+        }
+        return ret;
+    }
+    private int getSuccessor(Deque<TreeNode> stack) {
+        TreeNode cur = stack.pop();
+        int ret = cur.val;
+        TreeNode p = cur.right;
+        while(p!=null){
+            stack.push(p);
+            p = p.left;
+        }
+        return ret;
+    }
+    private void initialPredeStack(Deque<TreeNode> stack, double target, TreeNode root){
+        TreeNode p = root;
+        while(p!=null){
+            if(p.val==target){
+                stack.push(p);
+                return;
+            }
+            else if(p.val<target){
+                stack.push(p);
+                p = p.right;
+            }else{
+                p = p.left;
+            }
+        }
+    }
+    private void initialSuccStack(Deque<TreeNode> stack, double target, TreeNode root) {
+        TreeNode p = root;
+        while(p!=null){
+            if(p.val==target){
+                stack.push(p);
+                return;
+            }
+            else if(p.val > target) {
+                stack.push(p);
+                p = p.left;
+            }else{
+                p = p.right;
+            }
+        }
+    }
+}
